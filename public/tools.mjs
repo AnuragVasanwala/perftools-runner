@@ -77,9 +77,10 @@ const runners = {
     name: 'Chrome UX Report',
     desc: `The Chrome User Experience Report provides UX metrics for how
           real-world Chrome users experience popular destinations on the web.`,
-    url: 'https://developers.google.com/web/tools/chrome-user-experience-report/',
+    url: 'https://developer.chrome.com/docs/crux/dashboard',
+    urlInputSelector: '#origin',
     primary: false,
   },
 };
 
-export {runners, DEFAULT_SCREENSHOT_VIEWPORT};
+export { runners, DEFAULT_SCREENSHOT_VIEWPORT };

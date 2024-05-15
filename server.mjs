@@ -22,7 +22,7 @@ import fetch from 'node-fetch';
 import firebaseAdmin from 'firebase-admin';
 
 import puppeteer from 'puppeteer';
-import {runners, DEFAULT_SCREENSHOT_VIEWPORT} from './public/tools.mjs';
+import { runners, DEFAULT_SCREENSHOT_VIEWPORT } from './public/tools.mjs';
 import * as bitly from './public/bitly.mjs';
 
 /* eslint-disable no-unused-vars */
@@ -41,7 +41,7 @@ const firebaseApp = firebaseAdmin.initializeApp({
   storageBucket: CS_BUCKET,
 });
 const db = firebaseApp.firestore();
-db.settings({timestampsInSnapshots: true});
+db.settings({ timestampsInSnapshots: true });
 
 const app = express();
 
@@ -191,14 +191,14 @@ async function createPDF(origin, browser, filename) {
   const page = await browser.newPage();
   await page.setViewport(DEFAULT_SCREENSHOT_VIEWPORT);
   await page.emulateMedia('screen');
-  await page.goto(`${origin}/${filename}`, {waitUntil: 'load'});
+  await page.goto(`${origin}/${filename}`, { waitUntil: 'load' });
 
   const pdfFilename = `${Date.now()}.${filename.replace('.html', '.pdf')}`;
 
   const path = `./tmp/${pdfFilename}`;
   const buffer = await page.pdf({
     path,
-    margin: {top: '16px', right: '16px', bottom: '16px', left: '16px'},
+    margin: { top: '16px', right: '16px', bottom: '16px', left: '16px' },
   });
 
   await page.close();
@@ -286,7 +286,7 @@ app.use(function addRequestHelpers(req, res, next) {
   next();
 });
 
-app.use(express.static('public', {extensions: ['html', 'htm']}));
+app.use(express.static('public', { extensions: ['html', 'htm'] }));
 app.use(express.static('tmp'));
 app.use(express.static('node_modules'));
 // app.use(function cors(req, res, next) {
@@ -359,7 +359,7 @@ app.get('/run', catchAsyncErrors(async (req, res) => {
 
         const resultsUrl = results.resultsUrl || `/${tool}.html`;
 
-        res.write(`data: "${JSON.stringify({tool, resultsUrl})}"\n\n`);
+        res.write(`data: "${JSON.stringify({ tool, resultsUrl })}"\n\n`);
         // res.flush();
 
         return results;
@@ -376,7 +376,7 @@ app.get('/run', catchAsyncErrors(async (req, res) => {
 
     // Log url to file.
     try {
-      util.promisify(fs.writeFile)('runs.txt', `${url},${tools}\n`, {flag: 'a'}); // async
+      util.promisify(fs.writeFile)('runs.txt', `${url},${tools}\n`, { flag: 'a' }); // async
     } catch (err) {
       console.warn(err);
     }
